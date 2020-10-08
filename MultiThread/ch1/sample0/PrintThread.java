@@ -1,4 +1,4 @@
-package ch1;
+package sample0;
 
 public class PrintThread extends Thread {
 	private String message;
