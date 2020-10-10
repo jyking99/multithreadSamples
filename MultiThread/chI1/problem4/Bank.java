@@ -8,23 +8,40 @@ public class Bank {
         this.money = money;
     }
     public void deposit(int m) {
+    	printDeposit("in deposit before (" + m + ")");
         money += m;
+    	printDeposit("in deposit after (" + m + ")");
     }
     public boolean withdraw(int m) {
+    	printDeposit("in withdraw before (" + m + ")");
         if (money >= m) {
+       		if (Thread.currentThread().getId() % 2 == 0) {
+	        	try {
+        			Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+    		}
             money -= m;
             check();
             return true;
         } else {
-            return false;
+        	return false;
         }
     }
     public String getName() {
         return name;
     }
     private void check() {
+    	printDeposit("in check");
         if (money < 0) {
-            System.out.println("ï¿½Â¶ï¿½Ä¹â¤¬ï¿½Þ¥ï¿½ï¿½Ê¥ï¿½ï¿½Ç¤ï¿½! money = " + money);
+        	System.err.println(Thread.currentThread().getId() + "(in check error)—a‹àŽc‚‚ªƒ}ƒCƒiƒX‚Å‚·! money = " + money);
         }
     }
+	/**
+	 * 
+	 */
+	public void printDeposit(String message) {
+		System.out.println(Thread.currentThread().getId() + "(" + message + ")—a‹àŽc‚ = " + money);
+	}
 }
